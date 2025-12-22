@@ -10,10 +10,6 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return redirect()->route('accueil');
-    })->name('dashboard');
-
     Route::get('/accueil', function () {
         return view('accueil');
     })->name('accueil');
@@ -22,7 +18,6 @@ Route::middleware(['auth'])->group(function () {
         return view('parametres');
     })->name('parametres');
 
-    // ✅ NOM CORRIGÉ ICI (point au lieu de underscore)
     Route::get('/gestion-profil', function () {
         return view('gestion_profil');
     })->name('gestion.profil');

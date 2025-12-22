@@ -6,11 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
-    protected $fillable = ['niveau_id', 'code', 'nom', 'responsable_user_id', 'credits'];
+    protected $fillable = [
+        'niveau_id',
+        'semestre_id',
+        'code',
+        'nom',
+        'responsable_user_id',
+        'credits',
+    ];
 
     public function niveau()
     {
         return $this->belongsTo(Niveau::class);
+    }
+
+    public function semestre()
+    {
+        return $this->belongsTo(Semestre::class);
     }
 
     public function responsable()

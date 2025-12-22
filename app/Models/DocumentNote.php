@@ -9,8 +9,14 @@ class DocumentNote extends Model
     protected $table = 'documents_notes';
 
     protected $fillable = [
-        'module_id','semestre_id','user_id','titre','fichier_path','original_name',
-        'statut','submitted_at','approved_at'
+        'module_id',
+        'user_id',
+        'titre',
+        'fichier_path',
+        'original_name',
+        'statut',
+        'submitted_at',
+        'approved_at',
     ];
 
     public function module()
@@ -20,7 +26,8 @@ class DocumentNote extends Model
 
     public function semestre()
     {
-        return $this->belongsTo(Semestre::class);
+        // le semestre est connu via le module
+        return $this->module?->semestre();
     }
 
     public function uploader()

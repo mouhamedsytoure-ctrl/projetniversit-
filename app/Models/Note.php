@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
     protected $fillable = [
-        'document_note_id','etudiant_id','module_id','valeur','type','session'
+        'document_note_id',
+        'etudiant_id',
+        'valeur',
+        'type',
+        'session',
     ];
 
     public function document()
@@ -22,6 +26,7 @@ class Note extends Model
 
     public function module()
     {
-        return $this->belongsTo(Module::class);
+        // accès au module via le document
+        return $this->document?->module();
     }
 }

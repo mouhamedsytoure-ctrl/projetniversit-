@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Etudiant extends Model
 {
     protected $fillable = [
-        'matricule','prenom','nom','date_naissance','sexe','filiere_id','niveau_id'
+        'matricule',
+        'prenom',
+        'nom',
+        'date_naissance',
+        'sexe',
+        'niveau_id',
     ];
-
-    public function filiere()
-    {
-        return $this->belongsTo(Filiere::class);
-    }
 
     public function niveau()
     {
