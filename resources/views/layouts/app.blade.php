@@ -74,6 +74,16 @@
                         <span class="material-symbols-outlined">person</span>
                         Gestion du profil
                     </a>
+
+                    {{-- Lien Admin (visible uniquement pour les admins) --}}
+                    @if(auth()->check() && auth()->user()->hasRole('admin'))
+                        <a href="{{ route('admin.dashboard') }}"
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                           {{ request()->routeIs('admin.dashboard') ? 'bg-[#135bec]/10 border-l-4 border-[#135bec] text-[#135bec] font-bold' : 'hover:bg-gray-50 dark:hover:bg-gray-800 text-[#4c669a] dark:text-gray-400' }}">
+                            <span class="material-symbols-outlined">shield</span>
+                            Admin
+                        </a>
+                    @endif
                 </nav>
             </div>
 
@@ -101,6 +111,11 @@
                        href="{{ route('parametres') }}">Paramètres</a>
                     <a class="text-[#0d121b] dark:text-gray-200 text-sm font-medium hover:text-[#135bec] transition-colors"
                        href="{{ route('gestion.profil') }}">Gestion profil</a>
+
+                    @if(auth()->check() && auth()->user()->hasRole('admin'))
+                        <a class="text-[#0d121b] dark:text-gray-200 text-sm font-medium hover:text-[#135bec] transition-colors"
+                           href="{{ route('admin.dashboard') }}">Admin</a>
+                    @endif
                 </div>
 
                 <div class="flex items-center gap-3">

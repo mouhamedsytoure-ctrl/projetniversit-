@@ -17,7 +17,7 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register');
     }
-
+    
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -26,21 +26,29 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // 1) vérifier si c’est le premier utilisateur
         $isFirstUser = User::count() === 0;
 
+        // 2) créer l’utilisateur
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // 3) assigner le rôle
         if ($isFirstUser) {
-            $user->assignRole('Admin');
+            $user->assignRole('admin');     // ✅ admin principal
+        } else {
+            $user->assignRole('etudiant');  // ✅ rôle par défaut
         }
 
+        // 4) login + redirection
         event(new Registered($user));
         auth()->login($user);
 
         return redirect()->route('accueil');
     }
+
+    
 }
